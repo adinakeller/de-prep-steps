@@ -19,8 +19,14 @@ def convert_to_title_case(sentence):
     
     Use their suggestions to complete your function.
     """
+    words = sentence.split()
+    made_capital = []
+    for word in words:
+        made_capital.append(word.capitalize())
+
+    result = " ".join(made_capital)
+    return result
     
-    pass
 
 
 @run_test
@@ -29,7 +35,7 @@ def test_convert_single_word_to_title_case():
         format_err_msg("Hi", convert_to_title_case("hi"))
 
 
-@skip_test
+@run_test
 def test_convert_multi_word_to_title_case():
     assert convert_to_title_case("hello world") == "Hello World", \
         format_err_msg("Hello World", convert_to_title_case("hello world"))
@@ -43,7 +49,7 @@ def test_convert_multi_word_to_title_case():
                        convert_to_title_case("Well ain't this awkward"))
 
 
-@skip_test
+@run_test
 def test_convert_complex_sentence_to_title_case():
     assert convert_to_title_case(
         "not just apostrophes, could be something-else") \
