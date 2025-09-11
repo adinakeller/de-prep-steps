@@ -32,7 +32,20 @@ is_valid_mobile_number('0712345678!') # returns False
 
 
 def is_valid_mobile_number(mobile_number):
-    pass
+    if mobile_number.startswith('07'):
+        if len(mobile_number) == 11:
+            if mobile_number.isdigit():
+                return True
+    elif mobile_number.startswith('+447'):
+        if len(mobile_number) == 13:
+            if mobile_number[3:].isdigit():
+                return True
+    elif mobile_number.startswith('00447'):
+        if len(mobile_number) == 14:
+            if mobile_number.isdigit():
+                return True
+    return False
+
 
 
 @run_test
@@ -156,52 +169,57 @@ sum_digits_from_string('northcoders') # returns 0
 
 
 def sum_digits_from_string(string):
-    pass
+    count = 0 
+    for char in string:
+        if char.isdigit():
+            digit = int(char)
+            count += digit
+    return count
 
 
-@skip_test
+@run_test
 def sum_digits_from_string_should_return_0_for_empty_string():
     result = sum_digits_from_string("")
     expected = 0
     assert result == expected, format_err_msg(expected, result)
 
 
-@skip_test
+@run_test
 def sum_digits_from_string_should_return_0_for_non_numeric_string():
     result = sum_digits_from_string("a")
     expected = 0
     assert result == expected, format_err_msg(expected, result)
 
 
-@skip_test
+@run_test
 def sum_digits_from_string_should_return_integer_for_single_digit():
     result = sum_digits_from_string("5")
     expected = 5
     assert result == expected, format_err_msg(expected, result)
 
 
-@skip_test
+@run_test
 def sum_digits_from_string_should_return_sum_for_two_digits():
     result = sum_digits_from_string("16")
     expected = 7
     assert result == expected, format_err_msg(expected, result)
 
 
-@skip_test
+@run_test
 def sum_digits_from_string_should_return_sum_for_three_digits():
     result = sum_digits_from_string("255")
     expected = 12
     assert result == expected, format_err_msg(expected, result)
 
 
-@skip_test
+@run_test
 def sum_digits_from_string_should_return_sum_for_mixed_string():
     result = sum_digits_from_string("he12ll3")
     expected = 6
     assert result == expected, format_err_msg(expected, result)
 
 
-@skip_test
+@run_test
 def sum_digits_from_string_should_return_0_for_no_numbers():
     result = sum_digits_from_string("northcoders")
     expected = 0
@@ -229,45 +247,51 @@ get_williams(['William David', 'Cole Williamson']) # returns []
 
 
 def get_williams(names):
-    pass
+    surname_William = []
+    for name in names:
+        first_last = name.split()
+        if first_last[1] == 'Williams':
+            surname_William.append(name)
+    return surname_William
 
 
-@skip_test
+
+@run_test
 def get_williams_should_return_empty_list_for_empty_list():
     result = get_williams([])
     expected = []
     assert result == expected, format_err_msg(expected, result)
 
 
-@skip_test
+@run_test
 def get_williams_should_return_empty_list_for_single_invalid_item():
     result = get_williams(["Kirsty February"])
     expected = []
     assert result == expected, format_err_msg(expected, result)
 
 
-@skip_test
+@run_test
 def get_williams_should_return_single_valid_item():
     result = get_williams(["David Williams"])
     expected = ["David Williams"]
     assert result == expected, format_err_msg(expected, result)
 
 
-@skip_test
+@run_test
 def get_williams_should_return_several_valid_items():
     result = get_williams(["David Williams", "Sarah Williams"])
     expected = ["David Williams", "Sarah Williams"]
     assert result == expected, format_err_msg(expected, result)
 
 
-@skip_test
+@run_test
 def get_williams_should_return_mixed_items():
     result = get_williams(["Kirsty February", "Sam Williams"])
     expected = ["Sam Williams"]
     assert result == expected, format_err_msg(expected, result)
 
 
-@skip_test
+@run_test
 def get_williams_should_return_empty_list_for_mixed_items_with_rogue_williams():
     result = get_williams(["William David", "Cole Williamson"])
     expected = []
@@ -295,31 +319,44 @@ get_factorials([]) # returns []
 
 
 def get_factorials(numbers):
-    pass
+    factorials = []
+    for num in numbers:
+        total = 1
+        for i in range(num, 0, -1):
+            total *= i
+        factorials.append(total)
+    return factorials
+    # result = 1
+    # total_fact = []
+    # for num in factorials:
+    #     result *= num
+    # total_fact.append(result)
+    # return total_fact
 
 
-@skip_test
+
+@run_test
 def get_factorials_should_return_empty_list_for_empty_list():
     result = get_factorials([])
     expected = []
     assert result == expected, format_err_msg(expected, result)
 
 
-@skip_test
+@run_test
 def get_factorials_should_return_single_item():
     result = get_factorials([3])
     expected = [6]
     assert result == expected, format_err_msg(expected, result)
 
 
-@skip_test
+@run_test
 def get_factorials_should_return_multiple_items():
     result = get_factorials([1, 5, 2])
     expected = [1, 120, 2]
     assert result == expected, format_err_msg(expected, result)
 
 
-@skip_test
+@run_test
 def get_factorials_should_return_factorial_of_1():
     result = get_factorials([1])
     expected = [1]
@@ -342,59 +379,67 @@ largest_number(43) # returns 43
 
 
 def largest_number(number):
-    pass
+    number_str = str(number)
+    digits = []
+    for num in number_str:
+        digits.append(num)
+    digits.sort()
+    digits.reverse()
+    result = "".join(digits)
+    result = int(result)
+    return result
 
 
-@skip_test
+@run_test
 def largest_number_should_return_single_digit():
     result = largest_number(3)
     expected = 3
     assert result == expected, format_err_msg(expected, result)
 
 
-@skip_test
+@run_test
 def largest_number_should_return_double_digits_in_correct_order():
     result = largest_number(43)
     expected = 43
     assert result == expected, format_err_msg(expected, result)
 
 
-@skip_test
+@run_test
 def largest_number_should_return_double_digits_in_incorrect_order():
     result = largest_number(34)
     expected = 43
     assert result == expected, format_err_msg(expected, result)
 
 
-@skip_test
+@run_test
 def largest_number_should_return_double_digits_repeated():
     result = largest_number(44)
     expected = 44
     assert result == expected, format_err_msg(expected, result)
 
 
-@skip_test
+@run_test
 def largest_number_should_return_triple_digits_in_correct_order():
     result = largest_number(321)
     expected = 321
     assert result == expected, format_err_msg(expected, result)
 
 
-@skip_test
+@run_test
 def largest_number_should_return_triple_digits_in_incorrect_order():
     result = largest_number(213)
     expected = 321
     assert result == expected, format_err_msg(expected, result)
 
 
-@skip_test
+@run_test
 def largest_number_should_return_triple_digits_with_two_repeated():
     result = largest_number(233)
     expected = 332
     assert result == expected, format_err_msg(expected, result)
 
 
-@skip_test
+@run_test
 def largest_number_should_return_lots_of_digits():
     result = largest_number(8456329456)
     expected = 9866554432
@@ -421,31 +466,38 @@ generate_matrix(3) # returns [
 
 
 def generate_matrix(number):
-    pass
+    if number == 0:
+        return []
+    result = []
+    for i in range(number):
+        sublist = [None] * number
+        result.append(sublist)
+    return result 
+        
 
 
-@skip_test
+@run_test
 def generate_matrix_should_return_empty_list_for_zero():
     result = generate_matrix(0)
     expected = []
     assert result == expected, format_err_msg(expected, result)
 
 
-@skip_test
+@run_test
 def generate_matrix_should_return_single_nested_list_for_single_digit():
     result = generate_matrix(1)
     expected = [[None]]
     assert result == expected, format_err_msg(expected, result)
 
 
-@skip_test
+@run_test
 def generate_matrix_should_return_two_nested_lists_for_two_digits():
     result = generate_matrix(2)
     expected = [[None, None], [None, None]]
     assert result == expected, format_err_msg(expected, result)
 
 
-@skip_test
+@run_test
 def generate_matrix_should_return_three_nested_lists_for_three_digits():
     result = generate_matrix(3)
     expected = [[None, None, None], [None, None, None], [None, None, None]]
@@ -481,38 +533,41 @@ one is the right way round with less than 3 pieces of fruit
 
 
 def find_wrong_way_fruit(orchard):
-    pass
+    for fruit in orchard:
+        if orchard.count(fruit) == 1:
+            diff_fruit = fruit
+            return orchard.index(diff_fruit)
 
 
-@skip_test
+@run_test
 def find_wrong_way_fruit_should_return_zero_for_singleton_list():
     result = find_wrong_way_fruit(["apple"])
     expected = 0
     assert result == expected, format_err_msg(expected, result)
 
 
-@skip_test
+@run_test
 def find_wrong_way_fruit_should_return_zero_for_list_length_two():
     result = find_wrong_way_fruit(["grape", "eparg"])
     expected = 0
     assert result == expected, format_err_msg(expected, result)
 
 
-@skip_test
+@run_test
 def find_wrong_way_fruit_should_find_last_item_if_reversed():
     result = find_wrong_way_fruit(["apple", "apple", "elppa"])
     expected = 2
     assert result == expected, format_err_msg(expected, result)
 
 
-@skip_test
+@run_test
 def find_wrong_way_fruit_should_find_first_item_if_reversed():
     result = find_wrong_way_fruit(["elppa", "apple", "apple"])
     expected = 0
     assert result == expected, format_err_msg(expected, result)
 
 
-@skip_test
+@run_test
 def find_wrong_way_fruit_should_find_intermediate_reversed_item():
     result = find_wrong_way_fruit(["banana", "ananab", "banana", "banana"])
     expected = 1
@@ -543,94 +598,113 @@ dna_pairs('gat') # returns ['GC', 'AT', 'TA']
 
 
 def dna_pairs(dna_string):
-    pass
+    list_dna_pairs = []
+
+    GCTA = dna_string.upper()
+    for item in GCTA:
+        if item == 'G':
+           list_dna_pairs.append('GC')
+        elif item == 'C':
+            list_dna_pairs.append('CG') 
+        elif item == 'T':
+            list_dna_pairs.append('TA')
+        elif item == 'A':
+            list_dna_pairs.append('AT')
+    return list_dna_pairs
+
+    # if 'G' in GCTA:
+    #     list_dna_pairs.append('GC') - doesnt work bc doesnt stops when first if is carried out.
+    
+# make all upper
+# give variables to pairs
+# if this dna return this pair
 
 
-@skip_test
+@run_test
 def dna_pairs_should_return_empty_list_for_empty_string():
     result = dna_pairs("")
     expected = []
     assert result == expected, format_err_msg(expected, result)
 
 
-@skip_test
+@run_test
 def dna_pairs_should_return_empty_list_for_single_invalid_letter():
     result = dna_pairs("B")
     expected = []
     assert result == expected, format_err_msg(expected, result)
 
 
-@skip_test
+@run_test
 def dna_pairs_should_return_single_valid_uppercase_letter_G():
     result = dna_pairs("G")
     expected = ["GC"]
     assert result == expected, format_err_msg(expected, result)
 
 
-@skip_test
+@run_test
 def dna_pairs_should_return_single_valid_uppercase_letter_C():
     result = dna_pairs("C")
     expected = ["CG"]
     assert result == expected, format_err_msg(expected, result)
 
 
-@skip_test
+@run_test
 def dna_pairs_should_return_single_valid_uppercase_letter_T():
     result = dna_pairs("T")
     expected = ["TA"]
     assert result == expected, format_err_msg(expected, result)
 
 
-@skip_test
+@run_test
 def dna_pairs_should_return_single_valid_uppercase_letter_A():
     result = dna_pairs("A")
     expected = ["AT"]
     assert result == expected, format_err_msg(expected, result)
 
 
-@skip_test
+@run_test
 def dna_pairs_should_return_single_valid_lowercase_letter_g():
     result = dna_pairs("g")
     expected = ["GC"]
     assert result == expected, format_err_msg(expected, result)
 
 
-@skip_test
+@run_test
 def dna_pairs_should_return_single_valid_lowercase_letter_c():
     result = dna_pairs("c")
     expected = ["CG"]
     assert result == expected, format_err_msg(expected, result)
 
 
-@skip_test
+@run_test
 def dna_pairs_should_return_single_valid_lowercase_letter_t():
     result = dna_pairs("t")
     expected = ["TA"]
     assert result == expected, format_err_msg(expected, result)
 
 
-@skip_test
+@run_test
 def dna_pairs_should_return_single_valid_lowercase_letter_a():
     result = dna_pairs("a")
     expected = ["AT"]
     assert result == expected, format_err_msg(expected, result)
 
 
-@skip_test
+@run_test
 def dna_pairs_should_return_valid_list_for_long_valid_uppercase_string():
     result = dna_pairs("GAT")
     expected = ["GC", "AT", "TA"]
     assert result == expected, format_err_msg(expected, result)
 
 
-@skip_test
+@run_test
 def dna_pairs_should_return_valid_list_for_long_uppercase_string_with_invalid_chars():
     result = dna_pairs("GYTC")
     expected = ["GC", "TA", "CG"]
     assert result == expected, format_err_msg(expected, result)
 
 
-@skip_test
+@run_test
 def dna_pairs_should_return_valid_list_for_mixed_string():
     result = dna_pairs("CGauTzgAcj")
     expected = ["CG", "GC", "AT", "TA", "GC", "AT", "CG"]
@@ -653,45 +727,55 @@ tally_hashtags_and_mentions(tweet) # returns {'hashtags': 2, 'mentions': 1}
 
 
 def tally_hashtags_and_mentions(tweet):
-    pass
+    hash_count = 0
+    ment_count = 0
+    for char in tweet:
+        if char == '#':
+           hash_count += 1
+        elif char == '@':
+            ment_count += 1
+    dict_for_hash_ment = {
+        'hashtags': hash_count,
+        'mentions' : ment_count
+    }
+    return dict_for_hash_ment
 
 
-@skip_test
+@run_test
 def tally_hashtags_and_mentions_should_return_0_for_empty_tweet():
     result = tally_hashtags_and_mentions("")
     expected = {"hashtags": 0, "mentions": 0}
     assert result == expected, format_err_msg(expected, result)
 
 
-@skip_test
+@run_test
 def tally_hashtags_and_mentions_should_return_1_for_single_hashtag():
     result = tally_hashtags_and_mentions("#omg")
     expected = {"hashtags": 1, "mentions": 0}
     assert result == expected, format_err_msg(expected, result)
 
 
-@skip_test
+@run_test
 def tally_hashtags_and_mentions_should_return_1_for_single_mention():
     result = tally_hashtags_and_mentions("@paul_c")
     expected = {"hashtags": 0, "mentions": 1}
     assert result == expected, format_err_msg(expected, result)
 
 
-@skip_test
+@run_test
 def tally_hashtags_and_mentions_should_return_1_for_tweet_containing_single_hashtag():
     result = tally_hashtags_and_mentions("Best place to learn #python?")
     expected = {"hashtags": 1, "mentions": 0}
     assert result == expected, format_err_msg(expected, result)
 
 
-@skip_test
+@run_test
 def tally_hashtags_and_mentions_should_return_1_for_tweet_containing_single_mention():
     result = tally_hashtags_and_mentions("Need coding help, paging @Danika ...")
     expected = {"hashtags": 0, "mentions": 1}
     assert result == expected, format_err_msg(expected, result)
 
-
-@skip_test
+@run_test
 def tally_hashtags_and_mentions_should_return_several_hashtags_and_mentions():
     result = tally_hashtags_and_mentions(
         "So excited to start at @northcoders on Monday! #learntocode #codingbootcamp"
@@ -700,7 +784,7 @@ def tally_hashtags_and_mentions_should_return_several_hashtags_and_mentions():
     assert result == expected, format_err_msg(expected, result)
 
 
-@skip_test
+@run_test
 def tally_hashtags_and_mentions_should_return_several_hashtags_and_mentions_mixed():
     result = tally_hashtags_and_mentions(
         "Thanks to @Alex and @Cat for helping with my #python #coding"
