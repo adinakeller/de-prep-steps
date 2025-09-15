@@ -23,8 +23,8 @@ def extract_repo_name(text):
     where "northcoders" is the name of the account and "de-intro-regex" is the
     name of the repo
     """
-    pass
-
+    seperated = re.split('/', text)
+    return seperated[4]
 
 @run_test
 def test_extract_repo_name_returns_repo_name():

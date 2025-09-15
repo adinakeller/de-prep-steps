@@ -30,7 +30,8 @@ def exclude_words(text):
     - "I study at Northcoders." should be "I study at Northcoders."
     - "IBM hired a lot of coders." should be "IBM hired a lot of ."
     """
-    pass
+    north_coders = re.sub('\b(north|coders)\b', '', text)
+    return north_coders
 
 
 @run_test

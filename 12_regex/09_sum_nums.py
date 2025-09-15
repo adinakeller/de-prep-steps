@@ -23,7 +23,12 @@ def sum_nums(text):
 
     If there are no numbers, you should return 0
     """
-    pass
+    nums = re.findall('\d+', text)
+    if nums:
+        return sum(int(n) for n in nums)
+    else:
+        return 0
+    
 
 
 @run_test

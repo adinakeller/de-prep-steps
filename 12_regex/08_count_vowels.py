@@ -19,7 +19,8 @@ def count_vowels(text):
     This function should take a string as an argument, and return a count
     representing the number of vowels it contains
     """
-    pass
+    vowels = re.findall('[aeiouAEIOU]', text)
+    return len(vowels)
 
 
 @run_test
