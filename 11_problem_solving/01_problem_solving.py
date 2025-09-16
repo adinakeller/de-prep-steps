@@ -186,6 +186,13 @@ access_item(["a", "b", "c", "d"], 5) == "b"
 def access_item(sample_list, index):
     return sample_list[index  % len(sample_list)]
 
+    # position = 0
+    # for _ in range(index):
+    #     position += 1
+    #     if position == len(sample_list):  
+    #         position = 0
+    # return sample_list[position]
+
 
 @run_test
 def test_access_item_retrieves_item_when_passed_index_less_than_list_len():
