@@ -135,31 +135,29 @@ def convert_time_string(sample_string):
     mins = int(seperated_num[1])
 
     if hours == 00:
-        return f'12:{mins}'
-    if hours == 00 and mins < 10:
-        return f'12:0{mins}'
+        hours = 12
     elif hours > 12:
-        return f'0{hours - 12}:0{mins}'
-    else:
-        return sample_string
+        hours -= 12
+    return f'{hours:02d}:{mins:02d}'
+
 # struggled to complete
 
 
-@skip_test
+@run_test
 def test_convert_time_string_returns_the_string_unchanged_if_already_within_the_right_format():
     assert convert_time_string("06:28") == "06:28", format_err_msg(
         "06:28", convert_time_string("06:28")
     )
 
 
-@skip_test
+@run_test
 def test_convert_time_string_converts_an_afternoon_time_to_the_12_hour_format():
     assert convert_time_string("16:07") == "04:07", format_err_msg(
         "04:07", convert_time_string("16:07")
     )
 
 
-@skip_test
+@run_test
 def test_convert_time_string_converts_times_in_the_hour_after_midnight_to_the_12_hour_format():
     assert convert_time_string("00:56") == "12:56", format_err_msg(
         "12:56", convert_time_string("00:56")

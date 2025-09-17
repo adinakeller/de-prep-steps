@@ -184,7 +184,7 @@ access_item(["a", "b", "c", "d"], 5) == "b"
 
 
 def access_item(sample_list, index):
-    return sample_list[index  % len(sample_list)]
+    return sample_list[index % len(sample_list)]
 
     # position = 0
     # for _ in range(index):
